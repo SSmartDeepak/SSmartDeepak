@@ -1,0 +1,176 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct NODE
+{
+    int data;
+    struct NODE *next;
+} *head=NULL;
+typedef struct NODE node;
+void traversal()
+    {
+        node *ptr=head;
+        while(ptr!=NULL)
+        {
+            printf("Element: %d\n",ptr->data);
+            ptr=ptr->next;
+         }
+    }
+
+        void add_first()
+        {
+        int data;
+        printf("ENTER THE DATA");
+        scanf("%d", &data);
+        node *ptr=(node *) malloc(sizeof(node));
+        ptr->next=head;
+        ptr->data=data;
+        head=ptr;
+        } 
+      void add_last()
+      {
+        int data;
+        printf("ENTER DATA\n");
+        scanf("%d",&data);
+        node* r=(node*)malloc(sizeof(node));
+        node *ptr=head;
+        while(ptr->next!=NULL)
+        {
+            ptr=ptr->next;
+        }
+        ptr->next= r;
+        r->data=data;
+        r->next=NULL;
+      }
+    
+            
+ int main()
+ {
+     int choice; 
+      while(1)
+       {
+        printf("ENTER YOUR CHOICE\n 1->ADD FIRST\n 2->TRAVERSAL\n 3->EXIT\n\
+        4->ADD LAST\n 5->ADD AT INDEX\n 6->ADD AFTER NODE\n \
+        7->DELETE FIRST\n 8->DELETE LAST\n 9->DELETE AT INDEX\n\
+        10->DELETE AFTER NODE\n");
+        scanf("%d",&choice);
+                   
+         switch(choice)
+         {
+            case 1: add_first();
+            break;
+            case 2: traversal();
+            break;
+            case 3: exit(0);
+            break;
+            case 4: add_last();
+            break;
+            case 5: add_at_index();
+            break;
+            case 6: add_after_node();
+            break;
+            case 7: delete_first();
+            break;
+            case 8: delete_last();
+            break;
+            case 9: delete_at_index();
+            break;
+            case 10: delete_after_node();
+            break;
+         }
+
+       }
+   return 0;
+ }
+
+ void add_at_index()
+ {
+  int data, index;
+             printf("ENTER DATA And INDEX\n");
+              scanf("%d%d",&data,&index);
+               node *ptr=(node*) malloc(sizeof(node));
+                node *p=head;
+                int i=0;
+                while(i!=index)
+                  {
+                       p=p->next;
+                        i++;
+                  }
+        ptr->data=data;
+        ptr->next=p->next;
+        p->next=ptr;
+    
+ }
+
+ void add_after_node()
+ {
+  int element;
+  int data;
+  node *p;
+  p = head;
+  printf("ENTER THE ELEMENT AFTER WHICH YOU WANT TO ADD A NODE\n");
+  scanf("%d",&element);
+
+  while(p->data!=element)
+  {
+    p=p->next;
+  }
+  printf("ENTER DATA\n");
+  scanf("%d",&data);
+  node *ptr=(node*)malloc(sizeof(node));
+  ptr->data=data;
+  ptr->next=p->next;
+  p->next=ptr;
+ }
+
+
+void delete_first()
+{
+  node *q;
+  q=head;
+  head=q->next;
+  free(q);
+
+}
+
+void delete_last()
+{
+  node*r;
+  r=head;
+  while(r!=NULL)
+  {
+    r=r->next;
+  }
+  head->next=r;
+  free(r);
+}
+
+void delete_at_index()
+{
+  int index, i=0;
+  node *p=head;
+  node *q;
+  printf("ENTER INDEX\n");
+  scanf("%d",&index);
+  while(i!=index-1)
+  {
+    p=p->next;
+    i++;
+  }
+  q=p->next;
+  head->next=q;
+}
+
+void delete_after_node()
+{
+  int element;
+  node *p=head;
+  printf("ENTER THE ELEMENT AFTER WHICH YOU WANT TO DELETE A NODE\n");
+  scanf("%d",&element);
+  while(p->data!=element)
+  {
+    p=p->next;
+  }
+  node *q=p->next;
+  p->next=q->next;
+  free(q);
+}
